@@ -21,40 +21,37 @@
  * @Output head pointer of list.
  */
 listnode* addTwoNumbers(listnode* A, listnode* B) {
-    listnode* temp=NULL;
-    listnode* prev=NULL;
-    listnode* head=NULL;
-    int carry=0,sum=0;
-    while(A||B)
-    {
-        sum=carry + (A?A->val:0)+ (B?B->val:0);
-        if(sum>=10)
-        {
-            carry=1;
+    int carry=0;
+    listnode* ptra=A;
+    listnode* ptrb=B;
+    listnode* ptrc=NULL;
+    listnode* head;
+    while(ptra || ptrb){
+        int sum=0;
+        sum=(ptra?ptra->val:0) + (ptrb?ptrb->val:0) + carry;
+        if(sum>=10){
             sum=sum%10;
+            carry=1;
         }
-        else
-        {
+        else{
             carry=0;
         }
-        temp=listnode_new(sum);
-        if(head==NULL)
-        {
-            head=temp;
+        listnode* temp=listnode_new(sum);
+        if(ptrc==NULL){
+            ptrc=temp;
+            head=ptrc;
         }
-        else
-        {
-            prev->next=temp;
+        else{
+            ptrc->next=temp;
+            ptrc=temp;
         }
-        prev=temp;
-       if(A) A=A->next;
-        if(B) B=B->next;
+       if(ptra) ptra=ptra->next;
+        if(ptrb) ptrb=ptrb->next;
     }
-    if(carry)
-    {
-        temp=listnode_new(carry);
-        prev->next=temp;
-        prev=temp;
+    if(carry==1) {
+         listnode* temp=listnode_new(carry);
+          ptrc->next=temp;
+            ptrc=temp;
     }
     return head;
 }
