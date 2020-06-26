@@ -8,5 +8,5 @@ ListNode* Solution::deleteDuplicates(ListNode* A) {
        current=current->next;
        }
    }
-   return A;
+   return A; 
 }
